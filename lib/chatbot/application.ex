@@ -1,6 +1,4 @@
 defmodule Chatbot.Application do
-  # See http://elixir-lang.org/docs/stable/elixir/Application.html
-  # for more information on OTP Applications
   @moduledoc false
 
   use Application
@@ -8,14 +6,16 @@ defmodule Chatbot.Application do
   def start(_type, _args) do
     import Supervisor.Spec, warn: false
 
-    # Define workers and child supervisors to be supervised
+    port =
+      case System.get_env("PORT") do
+        nil -> 4000
+        value -> String.to_integer(value)
+      end
+
     children = [
-      # Starts a worker by calling: Chatbot.Worker.start_link(arg1, arg2, arg3)
-      # worker(Chatbot.Worker, [arg1, arg2, arg3]),
+      Plug.Adapters.Cowboy.child_spec(:http, Chatbot.Router, [], [port: port])
     ]
 
-    # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
-    # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Chatbot.Supervisor]
     Supervisor.start_link(children, opts)
   end

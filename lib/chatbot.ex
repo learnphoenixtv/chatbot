@@ -1,18 +1,10 @@
 defmodule Chatbot do
-  @moduledoc """
-  Documentation for Chatbot.
-  """
+  def command(["chatbot", "help"]) do
+    """
+    chatbot gif <search terms>
+    """
+  end
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Chatbot.hello
-      :world
-
-  """
-  def hello do
-    :world
+  def command(["chatbot", "gif" | terms]) do
   end
 end
