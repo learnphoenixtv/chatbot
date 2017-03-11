@@ -11,7 +11,7 @@ defmodule Chatbot.Mixfile do
   end
 
   def application do
-    [extra_applications: [:logger, :cowboy, :plug, :poison, :httpoison, :giphy],
+    [extra_applications: [:logger],
      mod: {Chatbot.Application, []}]
   end
 
